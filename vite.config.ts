@@ -9,6 +9,10 @@ export default defineConfig({
   resolve: {
     alias: [
       {
+        find: "@constants",
+        replacement: fileURLToPath(new URL("./src/constants", import.meta.url)),
+      },
+      {
         find: "@components",
         replacement: fileURLToPath(
           new URL("./src/components", import.meta.url)

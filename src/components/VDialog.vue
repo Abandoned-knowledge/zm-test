@@ -2,6 +2,10 @@
 import { useTemplateRef, watch } from "vue";
 import VButton from "./VButton.vue";
 
+const props = defineProps<{
+  prize?: number;
+}>();
+
 const dialog = useTemplateRef("dialog");
 const isOpenModel = defineModel<boolean>();
 
@@ -17,7 +21,7 @@ watch(isOpenModel, (isOpen) => {
         ТЫ МОЛОДЕЦ!
         <br />
         <br />
-        <span class="text-accent">ВОТ ТВОИ 300</span>
+        <span class="text-accent">ВОТ ТВОИ {{ props.prize }}</span>
       </h1>
       <VButton @click="isOpenModel = false">забрать</VButton>
     </div>

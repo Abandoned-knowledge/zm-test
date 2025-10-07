@@ -12,6 +12,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "paths": {
+      "@constants/*": ["./src/constants/*"],
       "@components/*": ["./src/components/*"],
       "@icons/*": ["./src/assets/icons/*"],
       "@/*": ["./src/*"]

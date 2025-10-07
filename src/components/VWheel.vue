@@ -1,16 +1,66 @@
 <script setup lang="ts">
-const wheelSections = [50, "пусто", 100, "повтор", 150, "пусто", 300, "повтор"];
+import { ref } from "vue";
+
+import {
+  DEFAULT_WHEEL_SPINS,
+  SPIN_DURATION_IN_SECONDS,
+  WHEEL_RADIUS,
+} from "@constants/index";
+
+const wheelSections = [
+  { label: "50", prize: 50 },
+  { label: "пусто", prize: 0 },
+  { label: "100", prize: 100 },
+  { label: "повтор", prize: 0 },
+  { label: "150", prize: 150 },
+  { label: "пусто", prize: 0 },
+  { label: "300", prize: 300 },
+  { label: "повтор", prize: 0 },
+];
+
+const sectionDegrees = WHEEL_RADIUS / wheelSections.length;
+
+const isSpinningModel = defineModel();
+
+function spinWheel(finalPosition: number) {
+  isSpinningModel.value = true;
+
+  const sectionIndex = finalPosition - 1;
+
+  spinDegrees.value +=
+    WHEEL_RADIUS * DEFAULT_WHEEL_SPINS + sectionIndex * sectionDegrees;
+
+  emit("spin-end", wheelSections[sectionIndex]?.prize);
+
+  setTimeout(
+    () => (isSpinningModel.value = false),
+    SPIN_DURATION_IN_SECONDS * 1000
+  );
+}
+
+const resetWheelRotate = () => (spinDegrees.value = 0);
+
+const spinDegrees = ref(0);
+
+defineExpose({
+  spinWheel,
+  resetWheelRotate,
+});
+
+const emit = defineEmits<{
+  "spin-end": [prize?: number];
+}>();
 </script>
 
 <template>
   <div class="wheel-container">
-    <ul class="wheel">
+    <ul class="wheel" :class="{ 'wheel--animated': isSpinningModel }">
       <li
         class="wheel__section"
-        v-for="(content, index) in wheelSections"
+        v-for="(section, index) in wheelSections"
         :key="index"
       >
-        <span class="wheel__text text-gradient">{{ content }}</span>
+        <span class="wheel__text text-gradient">{{ section.label }}</span>
       </li>
     </ul>
   </div>
@@ -20,7 +70,7 @@ const wheelSections = [50, "пусто", 100, "повтор", 150, "пусто",
 .wheel-container {
   width: clamp(18.75rem, 42.254vw + 8.847rem, 46.875rem);
   aspect-ratio: 1;
-  background: url("/src/assets/svg/wheel-border.svg") no-repeat center/ 100%;
+  background: url("/src/assets/svg/wheel-border.svg") no-repeat center/ 101%;
   position: relative;
   box-shadow: 0px 0px 50px #0e1155;
   border-radius: 50%;
@@ -47,10 +97,6 @@ const wheelSections = [50, "пусто", 100, "повтор", 150, "пусто",
     background: url("/src/assets/svg/wheel-center.svg") no-repeat center / 30%;
     z-index: 10;
   }
-
-  &:hover .wheel {
-    rotate: 45deg;
-  }
 }
 
 .wheel {
@@ -60,10 +106,10 @@ const wheelSections = [50, "пусто", 100, "повтор", 150, "пусто",
   padding-left: 0;
   display: flex;
   justify-content: center;
-  transition: 1s ease-in-out;
   position: relative;
   margin: 0;
   z-index: -5;
+  rotate: calc(v-bind(spinDegrees) * -1deg);
 
   &::after {
     content: "";
@@ -73,6 +119,10 @@ const wheelSections = [50, "пусто", 100, "повтор", 150, "пусто",
     background: url("/src/assets/svg/wheel-center-divier.svg") no-repeat center/
       90%;
   }
+}
+
+.wheel--animated {
+  transition: calc(v-bind(SPIN_DURATION_IN_SECONDS) * 1s) ease-in-out;
 }
 
 .wheel__section {

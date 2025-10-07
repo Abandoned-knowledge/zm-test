@@ -1,22 +1,40 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, useTemplateRef, watch } from "vue";
 
 import LogoIcon from "@icons/logo.svg";
 import VButton from "@components/VButton.vue";
 import VWheel from "@components/VWheel.vue";
 import VDialog from "@components/VDialog.vue";
+import { CALL_DIALOG_DELAY_IN_MS } from "./constants";
 
+const isSpinnig = ref(false);
 const isDialogOpen = ref(false);
+const wheelRef = useTemplateRef("wheel");
+
+watch(isSpinnig, (isSpin) => {
+  if (isSpin) return;
+
+  setTimeout(() => {
+    isDialogOpen.value = true;
+    wheelRef.value?.resetWheelRotate();
+  }, CALL_DIALOG_DELAY_IN_MS);
+});
+
+const prizeRef = ref<number | undefined>(0);
 </script>
 
 <template>
   <main class="main">
     <LogoIcon />
-    <VWheel />
-    <VButton @click="isDialogOpen = true">Крути</VButton>
+    <VWheel
+      ref="wheel"
+      @spin-end="(prize) => (prizeRef = prize)"
+      v-model="isSpinnig"
+    />
+    <VButton @click="wheelRef?.spinWheel(7)">Крути</VButton>
   </main>
 
-  <VDialog v-model="isDialogOpen" />
+  <VDialog :prize="prizeRef" v-model="isDialogOpen" />
 </template>
 
 <style scoped>
