@@ -7,7 +7,8 @@ const props = defineProps<{
 <template>
   <button class="button" :disabled="props.disabled">
     <span class="button__text text-gradient">
-      <slot></slot>
+      <template v-if="props.disabled">Подожди...</template>
+      <slot v-else></slot>
     </span>
   </button>
 </template>
