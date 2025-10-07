@@ -1,15 +1,22 @@
 <script setup lang="ts">
+import { ref } from "vue";
+
 import LogoIcon from "@icons/logo.svg";
 import VButton from "@components/VButton.vue";
 import VWheel from "@components/VWheel.vue";
+import VDialog from "@components/VDialog.vue";
+
+const isDialogOpen = ref(false);
 </script>
 
 <template>
   <main class="main">
     <LogoIcon />
     <VWheel />
-    <VButton>Крути</VButton>
+    <VButton @click="isDialogOpen = true">Крути</VButton>
   </main>
+
+  <VDialog v-model="isDialogOpen" />
 </template>
 
 <style scoped>
