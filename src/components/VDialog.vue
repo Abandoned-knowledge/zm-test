@@ -10,8 +10,15 @@ const dialog = useTemplateRef("dialog");
 const isOpenModel = defineModel<boolean>();
 
 watch(isOpenModel, (isOpen) => {
-  isOpen ? dialog.value?.showModal() : dialog.value?.close();
+  if (isOpen) return dialog.value?.showModal();
+
+  dialog.value?.close();
+  emit("close");
 });
+
+const emit = defineEmits<{
+  close: [void];
+}>();
 </script>
 
 <template>

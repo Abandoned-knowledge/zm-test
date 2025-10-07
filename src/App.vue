@@ -7,6 +7,7 @@ import VWheel from "@components/VWheel.vue";
 import VDialog from "@components/VDialog.vue";
 import { CALL_DIALOG_DELAY_IN_MS } from "./constants";
 
+const isPrizeTaken = ref(true);
 const isSpinnig = ref(false);
 const isDialogOpen = ref(false);
 const wheelRef = useTemplateRef("wheel");
@@ -20,6 +21,11 @@ watch(isSpinnig, (isSpin) => {
   }, CALL_DIALOG_DELAY_IN_MS);
 });
 
+function onClick() {
+  isPrizeTaken.value = false;
+  wheelRef.value?.spinWheel(7);
+}
+
 const prizeRef = ref<number | undefined>(0);
 </script>
 
@@ -31,10 +37,17 @@ const prizeRef = ref<number | undefined>(0);
       @spin-end="(prize) => (prizeRef = prize)"
       v-model="isSpinnig"
     />
-    <VButton @click="wheelRef?.spinWheel(7)">Крути</VButton>
+
+    <VButton :disabled="isSpinnig || !isPrizeTaken" @click="onClick">
+      Крути
+    </VButton>
   </main>
 
-  <VDialog :prize="prizeRef" v-model="isDialogOpen" />
+  <VDialog
+    @close="isPrizeTaken = true"
+    :prize="prizeRef"
+    v-model="isDialogOpen"
+  />
 </template>
 
 <style scoped>

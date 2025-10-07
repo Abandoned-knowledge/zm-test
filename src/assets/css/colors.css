@@ -3,6 +3,7 @@
   --gradient-accent: linear-gradient(to bottom, #ffc700, #e4a400);
   --gradient-text: linear-gradient(to bottom, #490082, #db00ff 48%, #490082);
   --gradient-overlay: linear-gradient(to bottom, #295890, #323168);
+  --gradient-disabled: linear-gradient(to bottom, #878787, #4a4a4a);
 
   --color-accent: #f5ba00;
   --color-on-background: #ffffff;

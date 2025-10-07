@@ -1,7 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const props = defineProps<{
+  disabled?: boolean;
+}>();
+</script>
 
 <template>
-  <button class="button">
+  <button class="button" :disabled="props.disabled">
     <span class="button__text text-gradient">
       <slot></slot>
     </span>
@@ -34,6 +38,12 @@
   }
 
   &:active {
+    box-shadow: none;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-image: var(--gradient-disabled);
     box-shadow: none;
   }
 }
