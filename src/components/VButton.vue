@@ -2,7 +2,7 @@
 
 <template>
   <button class="button">
-    <span class="button__text">
+    <span class="button__text text-gradient">
       <slot></slot>
     </span>
   </button>
@@ -39,8 +39,6 @@
 }
 
 .button__text {
-  background-image: var(--gradient-text);
-  background-clip: text;
-  -webkit-text-stroke: 2px transparent;
+  -webkit-text-stroke-width: 2px;
 }
 </style>

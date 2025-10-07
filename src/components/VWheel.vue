@@ -1,16 +1,17 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const wheelSections = [50, "пусто", 100, "повтор", 150, "пусто", 300, "повтор"];
+</script>
 
 <template>
   <div class="wheel-container">
     <ul class="wheel">
-      <li class="wheel__section"><span class="wheel__text">50</span></li>
-      <li class="wheel__section"><span class="wheel__text">пусто</span></li>
-      <li class="wheel__section"><span class="wheel__text">100</span></li>
-      <li class="wheel__section"><span class="wheel__text">повтор</span></li>
-      <li class="wheel__section"><span class="wheel__text">150</span></li>
-      <li class="wheel__section"><span class="wheel__text">пусто</span></li>
-      <li class="wheel__section"><span class="wheel__text">300</span></li>
-      <li class="wheel__section"><span class="wheel__text">повтор</span></li>
+      <li
+        class="wheel__section"
+        v-for="(content, index) in wheelSections"
+        :key="index"
+      >
+        <span class="wheel__text text-gradient">{{ content }}</span>
+      </li>
     </ul>
   </div>
 </template>
@@ -133,8 +134,6 @@
 }
 
 .wheel__text {
-  background-image: var(--gradient-text);
-  background-clip: text;
-  -webkit-text-stroke: 2px transparent;
+  -webkit-text-stroke-width: 2px;
 }
 </style>
