@@ -4,6 +4,12 @@
   --gradient-text: linear-gradient(to bottom, #490082, #db00ff 48%, #490082);
   --gradient-overlay: linear-gradient(to bottom, #295890, #323168);
   --gradient-disabled: linear-gradient(to bottom, #878787, #4a4a4a);
+  --gradient-dialog-border: linear-gradient(137deg, #789cd2, #403ea6, #3e1e72);
+  --gradient-dialog-background: linear-gradient(
+    154deg,
+    #5977c3 10%,
+    #54268d 90%
+  );
 
   --color-accent: #f5ba00;
   --color-on-background: #ffffff;

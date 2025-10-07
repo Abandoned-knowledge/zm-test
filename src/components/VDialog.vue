@@ -40,7 +40,7 @@ const emit = defineEmits<{
   border: solid clamp(0.375rem, 0.282vw + 0.309rem, 0.563rem) transparent;
   border-radius: clamp(2.5rem, 1.878vw + 2.06rem, 3.75rem);
   background-image: linear-gradient(transparent, transparent),
-    linear-gradient(137deg, #789cd2, #403ea6, #3e1e72);
+    var(--gradient-dialog-border);
   background-origin: border-box;
   background-clip: padding-box, border-box;
   padding: 0;
@@ -66,7 +66,7 @@ const emit = defineEmits<{
 }
 
 .modal__content {
-  background-image: linear-gradient(154deg, #5977c3 10%, #54268d 90%);
+  background-image: var(--gradient-dialog-background);
   padding: clamp(1.5rem, 1.502vw + 1.148rem, 2.5rem);
   display: flex;
   flex-direction: column;
