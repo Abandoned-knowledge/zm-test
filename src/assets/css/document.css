@@ -1,0 +1,16 @@
+html {
+  font-family: "Geologica", sans-serif;
+}
+
+body {
+  font-family: inherit;
+  min-height: 100dvh;
+  color: var(--color-on-background);
+  background-image: var(--gradient-background);
+  font-size: var(--text-body);
+}
+
+:where(*) {
+  color: inherit;
+  font-size: inherit;
+}
