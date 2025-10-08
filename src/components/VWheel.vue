@@ -68,7 +68,7 @@ const emit = defineEmits<{
 
 <style scoped>
 .wheel-container {
-  width: clamp(18.75rem, 42.254vw + 8.847rem, 46.875rem);
+  height: clamp(20.313rem, 25.822vw + 14.261rem, 37.5rem);
   aspect-ratio: 1;
   background: url("/src/assets/svg/wheel-border.svg") no-repeat center/ 101%;
   position: relative;
